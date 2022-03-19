@@ -10,8 +10,8 @@ const queries = require('../queries/tasks.queries');
  * DELETE - Delete
  */
 
-exports.getAllTasks = function(req, res) {
-    con.query(queries.ALL_TASKS, function(err, result, fields) {
+exports.getAllTasks = function (req, res) {
+    con.query(queries.ALL_TASKS, function (err, result, fields) {
         if (err) {
             res.send(err);
         }
@@ -20,8 +20,8 @@ exports.getAllTasks = function(req, res) {
 };
 
 // http://localhost:3000/tasks/1
-exports.getTask = function(req, res) {
-    con.query(queries.SINGLE_TASKS, [req.params.taskId], function(err, result) {
+exports.getTask = function (req, res) {
+    con.query(queries.SINGLE_TASKS, [req.params.taskId], function (err, result) {
         if (err) {
             res.send(err);
         }
@@ -36,13 +36,13 @@ exports.getTask = function(req, res) {
  *  name: 'A task name'
  * }
  */
-exports.createTask = function(req, res) {
-    con.query(queries.INSERT_TASK, [req.body.name], function(err, result) {
+exports.createTask = function (req, res) {
+    con.query(queries.INSERT_TASK, [req.body.name], function (err, result) {
         if (err) {
             res.send(err);
         }
         console.log(result);
-        res.json({ message: 'Number of records inserted: ' + result.affectedRows });
+        res.json({message: 'Number of records inserted: ' + result.affectedRows});
     });
 };
 
@@ -54,11 +54,11 @@ exports.createTask = function(req, res) {
  *  state: 'completed'
  * }
  */
-exports.updateTask = function(req, res) {
+exports.updateTask = function (req, res) {
     con.query(
         queries.UPDATE_TASK,
         [req.body.name, req.body.status, req.params.taskId],
-        function(err, data) {
+        function (err, data) {
             if (err) {
                 res.send(err);
             }
@@ -68,11 +68,11 @@ exports.updateTask = function(req, res) {
 };
 
 // http://localhost:3000/tasks/1
-exports.deleteTask = function(req, res) {
-    con.query(queries.DELETE_TASK, [req.params.taskId], function(err) {
+exports.deleteTask = function (req, res) {
+    con.query(queries.DELETE_TASK, [req.params.taskId], function (err) {
         if (err) {
             res.send(err);
         }
-        res.json({ message: 'Deleted successfully.' });
+        res.json({message: 'Deleted successfully.'});
     });
 };
