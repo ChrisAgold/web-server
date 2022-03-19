@@ -2,8 +2,9 @@ const con = require('../db-config');
 const queries = require('../queries/tasks.queries');
 
 /**
+ * CRUD FUNCTIONALITY FOR API
  * CRUD - Create, Read, Update, Delete
- * GET - Read
+ * GET - Read - read information
  * POST - Create
  * PUT - Update
  * DELETE - Delete

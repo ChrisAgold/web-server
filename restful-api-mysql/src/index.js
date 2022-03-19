@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('chris');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 
 const tasksRoutes = require('./routes/tasks.routes');
