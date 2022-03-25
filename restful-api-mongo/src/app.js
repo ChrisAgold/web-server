@@ -13,8 +13,8 @@ const logLevel = process.env.LOG_LEVEL || 'dev';
 // Make connection to the db
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/tododb', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 // Store the instance of db so we can listen to events.
@@ -23,7 +23,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
-    console.log('Connection Successful!');
+  console.log('Connection Successful!');
 });
 
 // Middleware - logs server requests to console

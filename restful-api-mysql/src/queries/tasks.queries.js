@@ -48,3 +48,11 @@ exports.UPDATE_TASK = `UPDATE tasks SET name = ?, status = ? WHERE id = ?`;
 
 // Delete a task by id
 exports.DELETE_TASK = `DELETE FROM tasks WHERE id = ?`;
+
+// mysqld => start mysql server
+// npm run start
+
+// just for debugging shell  //
+// mysql -u root -p => enter password
+
+

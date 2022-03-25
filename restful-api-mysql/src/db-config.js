@@ -15,21 +15,21 @@ const database = process.env.DB_DATABASE || 'tododb';
 
 // Create the connection with required details
 const con = mysql.createConnection({
-    host,
-    user,
-    password,
-    database
+  host,
+  user,
+  password,
+  database
 });
 
 // Connect to the database.
 con.connect(function(err) {
-    if (err) throw err;
-    console.log('Connected!');
+  if (err) throw err;
+  console.log('Connected!');
 
-    con.query(queries.CREATE_TASKS_TABLE, function(err, result) {
-        if (err) throw err;
-        console.log('Table created or exists already!');
-    });
+  con.query(queries.CREATE_TASKS_TABLE, function(err, result) {
+    if (err) throw err;
+    console.log('Table created or exists already!');
+  });
 });
 
 module.exports = con;

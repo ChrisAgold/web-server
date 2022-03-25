@@ -32,5 +32,5 @@ app.use(middleware.error500);
 
 // listen on server port
 app.listen(port, function() {
-    console.log(`Running on port: ${port}...`);
+  console.log(`Running on port: ${port}...`);
 });

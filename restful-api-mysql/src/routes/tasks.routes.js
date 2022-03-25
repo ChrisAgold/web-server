@@ -14,11 +14,11 @@ const tasksRoutes = express.Router();
 tasksRoutes.get('/', controllers.getAllTasks).post('/', controllers.createTask);
 
 /**
- * Routes for a task by id. Evaluates to `/tasks/:taskId`.
+ * Routes for a task by id. Evalutes to `/tasks/:taskId`.
  */
 tasksRoutes
-    .get('/:taskId', controllers.getTask) // GET http://locahost:3000/tasks/1
-    .put('/:taskId', controllers.updateTask)
-    .delete('/:taskId', controllers.deleteTask);
+  .get('/:taskId', controllers.getTask) // GET http://locahost:3000/tasks/1
+  .put('/:taskId', controllers.updateTask)
+  .delete('/:taskId', controllers.deleteTask);
 
 module.exports = tasksRoutes;
