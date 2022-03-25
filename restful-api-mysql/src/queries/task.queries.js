@@ -11,7 +11,7 @@
  * NOTE: order is important.
  * - columns can have multiple options attached (take `id` column for example)
  * - id is always first (helps with inserting)
- * - defaults always specifed last (helps with inserting)
+ * - defaults always specified last (helps with inserting)
  */
 exports.CREATE_TASKS_TABLE = `CREATE TABLE IF NOT EXISTS tasks(
   id int NOT NULL AUTO_INCREMENT,

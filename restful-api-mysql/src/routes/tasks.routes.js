@@ -14,7 +14,7 @@ const tasksRoutes = express.Router();
 tasksRoutes.get('/', controllers.getAllTasks).post('/', controllers.createTask);
 
 /**
- * Routes for a task by id. Evalutes to `/tasks/:taskId`.
+ * Routes for a task by id. Evaluates to `/tasks/:taskId`.
  */
 tasksRoutes
     .get('/:taskId', controllers.getTask) // GET http://locahost:3000/tasks/1

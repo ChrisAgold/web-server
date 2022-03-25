@@ -3,14 +3,14 @@
 // ************************************
 
 /**
- * Handle req that would produce a 404 status code and respons accordingly.
+ * Handle req that would produce a 404 status code and response accordingly.
  */
 exports.error404 = function(req, res, next) {
     next({ message: 'Not Found', status: 404 });
 };
 
 /**
- * Handle req that would produce a 500 status code and respons accordingly.
+ * Handle req that would produce a 500 status code and response accordingly.
  */
 exports.error500 = function(error, req, res, next) {
     res.status(error.status || 500);

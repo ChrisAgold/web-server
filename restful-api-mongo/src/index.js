@@ -51,3 +51,7 @@ app.use(middleware.error500);
 app.listen(port, function() {
     console.log(`Running on port: ${port}...`);
 });
+
+// brew services start mysql
+// brew services stop mysql
+// brew services restart mysql
