@@ -11,16 +11,17 @@
  * NOTE: order is important.
  * - columns can have multiple options attached (take `id` column for example)
  * - id is always first (helps with inserting)
- * - defaults always specifed last (helps with inserting)
+ * - defaults always specified last (helps with inserting)
  */
+//CHANGE 19-23
 exports.CREATE_TASKS_TABLE = `CREATE TABLE IF NOT EXISTS tasks(
                                                                   id int NOT NULL AUTO_INCREMENT,
-                                                                  user_id varchar(50) NOT NULL,
+                                                                  user_id int NOT NULL,
                                                                   name varchar(255) NOT NULL,
                                                                   created_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
                                                                   status varchar(10) DEFAULT 'pending',
                                                                   PRIMARY KEY (id),
-                                                                  FOREIGN KEY (user_id) REFERENCES users(id)
+                                                                  FOREIGN KEY (user_id) REFERENCES users(user_id)
                               )`;
 
 // Get every task
