@@ -9,8 +9,8 @@ const queries = require('../queries/tasks.queries');
  * DELETE - Delete
  */
 
-exports.getAllTasks = function(req, res) {
-  con.query(queries.ALL_TASKS, function(err, result, fields) {
+exports.getAllJOBS = function(req, res) {
+  con.query(queries.ALL_JOBS, function(err, result, fields) {
     if (err) {
       res.send(err);
     }
@@ -19,8 +19,8 @@ exports.getAllTasks = function(req, res) {
 };
 
 // http://localhost:3000/tasks/1
-exports.getTask = function(req, res) {
-  con.query(queries.SINGLE_TASKS, [req.params.taskId], function(err, result) {
+exports.getJOB = function(req, res) {
+  con.query(queries.SINGLE_JOBS, [req.params.jobId], function(err, result) {
     if (err) {
       res.send(err);
     }
@@ -35,8 +35,8 @@ exports.getTask = function(req, res) {
  *  name: 'A task name'
  * }
  */
-exports.createTask = function(req, res) {
-  con.query(queries.INSERT_TASK, [req.body.name], function(err, result) {
+exports.createJOB = function(req, res) {
+  con.query(queries.INSERT_JOB, [req.body.name], function(err, result) {
     if (err) {
       res.send(err);
     }
@@ -53,10 +53,10 @@ exports.createTask = function(req, res) {
  *  state: 'completed'
  * }
  */
-exports.updateTask = function(req, res) {
+exports.updateJOB = function(req, res) {
   con.query(
-    queries.UPDATE_TASK,
-    [req.body.name, req.body.status, req.params.taskId],
+    queries.UPDATE_JOB,
+    [req.body.name, req.body.status, req.params.jobId],
     function(err, data) {
       if (err) {
         res.send(err);
@@ -67,8 +67,8 @@ exports.updateTask = function(req, res) {
 };
 
 // http://localhost:3000/tasks/1
-exports.deleteTask = function(req, res) {
-  con.query(queries.DELETE_TASK, [req.params.taskId], function(err) {
+exports.deleteJOB = function(req, res) {
+  con.query(queries.DELETE_JOB, [req.params.jobId], function(err) {
     if (err) {
       res.send(err);
     }

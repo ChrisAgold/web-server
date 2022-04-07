@@ -32,9 +32,9 @@ con.connect(function(err) {
         console.log('Users table created');
     });
 
-    con.query(tasksQueries.CREATE_TASKS_TABLE, function(err, result) {
+    con.query(tasksQueries.CREATE_JOBS_TABLE, function(err, result) {
         if (err) throw err;
-        console.log('Tasks table created ');
+        console.log('Jobs table created ');
     });
 });
 

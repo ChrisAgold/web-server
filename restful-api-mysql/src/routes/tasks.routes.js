@@ -1,7 +1,7 @@
 const express = require('express');
 const controllers = require('../controllers/tasks.controller');
 
-const tasksRoutes = express.Router();
+const jobsRoutes = express.Router();
 /**
  * Express routes for Tasks.
  *
@@ -11,14 +11,14 @@ const tasksRoutes = express.Router();
 /**
  * Routes for all tasks. Evaluates to `/tasks/`.
  */
-tasksRoutes.get('/', controllers.getAllTasks).post('/', controllers.createTask);
+jobsRoutes.get('/', controllers.getAllJOBS).post('/', controllers.createJOB);
 
 /**
  * Routes for a task by id. Evalutes to `/tasks/:taskId`.
  */
-tasksRoutes
-    .get('/:taskId', controllers.getTask) // GET http://locahost:3000/tasks/1
-    .put('/:taskId', controllers.updateTask)
-    .delete('/:taskId', controllers.deleteTask);
+jobsRoutes
+    .get('/:jobId', controllers.getJOB) // GET http://locahost:3000/tasks/1
+    .put('/:jobId', controllers.updateJOB)
+    .delete('/:jobId', controllers.deleteJOB);
 
-module.exports = tasksRoutes;
+module.exports = jobsRoutes;
