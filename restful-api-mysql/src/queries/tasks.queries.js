@@ -13,7 +13,7 @@
  * - id is always first (helps with inserting)
  * - defaults always specified last (helps with inserting)
  */
-//CHANGE 19-23
+
 exports.CREATE_JOBS_TABLE = `CREATE TABLE IF NOT EXISTS jobs(
                                                                   id int NOT NULL AUTO_INCREMENT,
                                                                   job_id int NOT NULL,

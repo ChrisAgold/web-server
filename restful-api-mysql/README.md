@@ -1,5 +1,4 @@
 # Example MySQL RESTful API
-
 RESTful service power most any website today that receives and trasmits data via HTTP or HTTPS protocol. What you'll find below is what's used from express to run a simple set of Create, Read, Update, and Delete (CRUD) methods.
 
 Only the bare essentials are used to create the API service, and only the feature used by express and mongoose (mysql client) will be explained in this documentation guide.
@@ -9,7 +8,7 @@ _Caveats: Running this app assumes you have a working mysql instance preinstalle
 ## What you'll find
 
 | Direcotry   | Description                                           |
-| ----------- | ----------------------------------------------------- |
+| ----------- | ------------------------ |
 | queries     | Queries for data to be used in mysql.                 |
 | controllers | Functions to be bound and executed on routes.         |
 | routes      | A series of routes for handling HTTP requests.        |
