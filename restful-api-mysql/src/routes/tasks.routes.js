@@ -17,8 +17,8 @@ jobsRoutes.get('/', controllers.getAllJOBS).post('/', controllers.createJOB);
  * Routes for a task by id. Evalutes to `/tasks/:taskId`.
  */
 jobsRoutes
-    .get('/:jobId', controllers.getJOB) // GET http://locahost:3000/tasks/1
-    .put('/:jobId', controllers.updateJOB)
-    .delete('/:jobId', controllers.deleteJOB);
+    .get('/:id', controllers.getJOB) // GET http://locahost:3000/tasks/1
+    .put('/:id', controllers.updateJOB)
+    .delete('/:id', controllers.deleteJOB);
 
 module.exports = jobsRoutes;
