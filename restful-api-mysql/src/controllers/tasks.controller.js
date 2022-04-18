@@ -1,11 +1,171 @@
-const mysql = require('mysql');
+// const mysql = require('mysql');
+// const connection = require('../db-config');
+// const {
+//     ALL_JOB,
+//     SINGLE_JOB,
+//     INSERT_JOB,
+//     UPDATE_JOB,
+//     DELETE_JOB,
+// } = require('../queries/tasks.queries');
+// const query = require('../utils/query');
+// const { serverError } = require('../utils/handlers');
+//
+// /**
+//  * CRUD - Create, Read, Update, Delete
+//  * GET - Read
+//  * POST - Create
+//  * PUT - Update
+//  * DELETE - Delete
+//  */
+//
+// // http://localhost:3000/tasks
+// exports.getAllJobs = async (req, res) => {
+//     // establish connection
+//     const con = await connection().catch((err) => {
+//         throw err;
+//     });
+//
+//     // query all tasks
+//     const jobs = await query(con, ALL_JOBS(req.user.id), []).catch(
+//         serverError(res)
+//     );
+//
+//     // [] === true, 0 === false
+//     if (!job.length) {
+//         res.status(200).json({ msg: 'No tasks available for this user.' });
+//     }
+//     res.json(jobs);
+// };
+//
+// // http://localhost:3000/tasks/1
+// exports.getJobs = async (req, res) => {
+//     // establish connection
+//     const con = await connection().catch((err) => {
+//         throw err;
+//     });
+//
+//     // query all task
+//     const job = await query(
+//         con,
+//         SINGLE_JOB(req.user.id, req.params.jobId)
+//     ).catch(serverError(res));
+//
+//     if (!job.length) {
+//         res.status(400).json({ msg: 'No tasks available for this user.' });
+//     }
+//     res.json(job);
+// };
+//
+// // http://localhost:3000/tasks
+// /**
+//  * POST request -
+//  * {
+//  *  name: 'A task name'
+//  * }
+//  */
+// exports.createJob = async (req, res) => {
+//     // verify valid token
+//     const user = req.user; // {id: 1, iat: wlenfwekl, expiredIn: 9174323 }
+//
+//     // take result of middleware check
+//     if (user.id) {
+//         // establish connection
+//         const con = await connection().catch((err) => {
+//             throw err;
+//         });
+//
+//         // query add task
+//         const jobName = mysql.escape(req.body.jobName);
+//         const result = await query(con, INSERT_TASK(user.id, jobName)).catch(
+//             serverError(res)
+//         );
+//
+//         if (result.affectedRows !== 1) {
+//             res
+//                 .status(500)
+//                 .json({ msg: `Unable to add task: ${req.body.jobName}` });
+//         }
+//         res.json({ msg: 'Added task successfully!' });
+//     }
+// };
+//
+// /**
+//  * Build up values string.
+//  *
+//  * @example
+//  * 'key1 = value1, key2 = value2, ...'
+//  * "task_name = \'Task 1\', status = \'complete\', date = \'<today's_date>\'"
+//  */
+// const _buildValuesString = (req) => {
+//     const body = req.body;
+//     const values = Object.keys(body).map(
+//         // [task_name, status].map()
+//         (key) => `${key} = ${mysql.escape(body[key])}` // 'New 1 task name'
+//     );
+//
+//     values.push(`created_date = NOW()`); // update current date and time
+//     values.join(', '); // make into a string
+//     return values;
+// };
+//
+// // http://localhost:3000/tasks/1
+// /**
+//  * PUT request -
+//  * {
+//  *  name: 'A task name',
+//  *  state: 'completed'
+//  * }
+//  */
+// exports.updateJob = async (req, res) => {
+//     // establish connection
+//     const con = await connection().catch((err) => {
+//         throw err;
+//     });
+//     const values = _buildValuesString(req);
+//
+//     // query update task
+//     const result = await query(
+//         con,
+//         UPDATE_JOB(req.user.id, req.params.jobId, values)
+//     ).catch(serverError(res));
+//
+//     if (result.affectedRows !== 1) {
+//         res
+//             .status(500)
+//             .json({ msg: `Unable to update task: '${req.body.jobName}'` });
+//     }
+//     res.json(result);
+// };
+//
+// // http://localhost:3000/tasks/1
+// exports.deleteJob = async (req, res) => {
+//     // establish connection
+//     const con = await connection().catch((err) => {
+//         throw err;
+//     });
+//
+//     // query delete task
+//     const result = await query(
+//         con,
+//         DELETE_JOB(req.user.id, req.params.jobId)
+//     ).catch(serverError(res));
+//
+//     if (result.affectedRows !== 1) {
+//         res
+//             .status(500)
+//             .json({ msg: `Unable to delete job at: ${req.params.jobId}` });
+//     }
+//     res.json({ msg: 'Deleted successfully.' });
+// };
+
+const escape = require('mysql').escape;
 const connection = require('../db-config');
 const {
-    ALL_JOB,
-    SINGLE_JOB,
-    INSERT_JOB,
-    UPDATE_JOB,
-    DELETE_JOB,
+    ALL_TASKS,
+    SINGLE_TASK,
+    INSERT_TASK,
+    UPDATE_TASK,
+    DELETE_TASK,
 } = require('../queries/tasks.queries');
 const query = require('../utils/query');
 const { serverError } = require('../utils/handlers');
@@ -19,41 +179,41 @@ const { serverError } = require('../utils/handlers');
  */
 
 // http://localhost:3000/tasks
-exports.getAllJobs = async (req, res) => {
+exports.getAllTasks = async (req, res) => {
     // establish connection
     const con = await connection().catch((err) => {
         throw err;
     });
 
     // query all tasks
-    const jobs = await query(con, ALL_JOBS(req.user.id), []).catch(
+    const tasks = await query(con, ALL_TASKS(req.user.id), []).catch(
         serverError(res)
     );
 
     // [] === true, 0 === false
-    if (!job.length) {
+    if (!tasks.length) {
         res.status(200).json({ msg: 'No tasks available for this user.' });
     }
-    res.json(jobs);
+    res.json(tasks);
 };
 
 // http://localhost:3000/tasks/1
-exports.getJob = async (req, res) => {
+exports.getTask = async (req, res) => {
     // establish connection
     const con = await connection().catch((err) => {
         throw err;
     });
 
     // query all task
-    const job = await query(
+    const task = await query(
         con,
-        SINGLE_JOB(req.user.id, req.params.jobId)
+        SINGLE_TASK(req.user.id, req.params.taskId)
     ).catch(serverError(res));
 
-    if (!job.length) {
+    if (!task.length) {
         res.status(400).json({ msg: 'No tasks available for this user.' });
     }
-    res.json(job);
+    res.json(task);
 };
 
 // http://localhost:3000/tasks
@@ -63,7 +223,7 @@ exports.getJob = async (req, res) => {
  *  name: 'A task name'
  * }
  */
-exports.createJob = async (req, res) => {
+exports.createTask = async (req, res) => {
     // verify valid token
     const user = req.user; // {id: 1, iat: wlenfwekl, expiredIn: 9174323 }
 
@@ -75,15 +235,15 @@ exports.createJob = async (req, res) => {
         });
 
         // query add task
-        const jobName = mysql.escape(req.body.jobName);
-        const result = await query(con, INSERT_TASK(user.id, jobName)).catch(
+        const taskName = escape(req.body.task_name);
+        const result = await query(con, INSERT_TASK(user.id, taskName)).catch(
             serverError(res)
         );
 
         if (result.affectedRows !== 1) {
             res
                 .status(500)
-                .json({ msg: `Unable to add task: ${req.body.jobName}` });
+                .json({ msg: `Unable to add task: ${req.body.task_name}` });
         }
         res.json({ msg: 'Added task successfully!' });
     }
@@ -100,7 +260,7 @@ const _buildValuesString = (req) => {
     const body = req.body;
     const values = Object.keys(body).map(
         // [task_name, status].map()
-        (key) => `${key} = ${mysql.escape(body[key])}` // 'New 1 task name'
+        (key) => `${key} = ${escape(body[key])}` // 'New 1 task name'
     );
 
     values.push(`created_date = NOW()`); // update current date and time
@@ -116,7 +276,7 @@ const _buildValuesString = (req) => {
  *  state: 'completed'
  * }
  */
-exports.updateJob = async (req, res) => {
+exports.updateTask = async (req, res) => {
     // establish connection
     const con = await connection().catch((err) => {
         throw err;
@@ -126,19 +286,19 @@ exports.updateJob = async (req, res) => {
     // query update task
     const result = await query(
         con,
-        UPDATE_JOB(req.user.id, req.params.jobId, values)
+        UPDATE_TASK(req.user.id, req.params.taskId, values)
     ).catch(serverError(res));
 
     if (result.affectedRows !== 1) {
         res
             .status(500)
-            .json({ msg: `Unable to update task: '${req.body.jobName}'` });
+            .json({ msg: `Unable to update task: '${req.body.task_name}'` });
     }
     res.json(result);
 };
 
 // http://localhost:3000/tasks/1
-exports.deleteJob = async (req, res) => {
+exports.deleteTask = async (req, res) => {
     // establish connection
     const con = await connection().catch((err) => {
         throw err;
@@ -147,13 +307,14 @@ exports.deleteJob = async (req, res) => {
     // query delete task
     const result = await query(
         con,
-        DELETE_JOB(req.user.id, req.params.jobId)
+        DELETE_TASK(req.user.id, req.params.taskId)
     ).catch(serverError(res));
 
     if (result.affectedRows !== 1) {
         res
             .status(500)
-            .json({ msg: `Unable to delete job at: ${req.params.jobId}` });
+            .json({ msg: `Unable to delete task at: ${req.params.taskId}` });
     }
     res.json({ msg: 'Deleted successfully.' });
 };
+

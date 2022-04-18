@@ -1,3 +1,35 @@
+
+// exports.CREATE_JOBS_TABLE = `CREATE TABLE IF NOT EXISTS jobs(
+//                                                                   id int NOT NULL AUTO_INCREMENT,
+//                                                                   user_id int NOT NULL,
+//                                                                   jobName varchar(255) NOT NULL,
+//                                                                   created_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
+//                                                                   status varchar(10) DEFAULT 'pending',
+//                                                                   PRIMARY KEY (id),
+//                                                                   FOREIGN KEY (user_id) REFERENCES users(user_id)
+//                               )`;
+//
+// // Get every job
+// exports.ALL_JOBS = `SELECT * FROM jobs`;
+//
+// // Get a single job by id
+// exports.SINGLE_JOB = `SELECT * FROM jobs WHERE id = ?`;
+//
+// exports.INSERT_JOB = `INSERT INTO jobs (user_id, jobName) VALUES (?,?)`;
+//
+// //create job
+// // exports.INSERT_NEW_JOB = `INSERT INTO jobs (user_id, jobName) VALUES (?, ?)`;
+//
+// exports.UPDATE_JOB = `UPDATE jobs SET jobName = ?, status = ? WHERE id = ?`;
+//
+// // Delete a job by id
+// exports.DELETE_JOB = `DELETE FROM jobs WHERE id = ?`;
+
+// mysqld => start mysql server
+// npm run start
+
+// just for debugging shell  //
+// mysql -u root -p => enter password
 /**
  * Tables follow syntax:
  * - CREATE TABLE <table_name>(<column_name> <data_type> <options>, ...)
@@ -11,35 +43,38 @@
  * NOTE: order is important.
  * - columns can have multiple options attached (take `id` column for example)
  * - id is always first (helps with inserting)
- * - defaults always specified last (helps with inserting)
+ * - defaults always specifed last (helps with inserting)
  */
+exports.CREATE_TASKS_TABLE = `CREATE TABLE IF NOT EXISTS tasks(
+  task_id int NOT NULL AUTO_INCREMENT,
+  user_id int NOT NULL,
+  task_name varchar(255) NOT NULL,
+  created_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  status varchar(10) DEFAULT 'pending',
+  PRIMARY KEY (task_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)`;
 
-exports.CREATE_JOBS_TABLE = `CREATE TABLE IF NOT EXISTS jobs(
-                                                                  id int NOT NULL AUTO_INCREMENT,
-                                                                  user_id int NOT NULL,
-                                                                  jobName varchar(255) NOT NULL,
-                                                                  created_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
-                                                                  status varchar(10) DEFAULT 'pending',
-                                                                  PRIMARY KEY (id),
-                                                                  FOREIGN KEY (user_id) REFERENCES users(user_id)
-                              )`;
+// Get every task
+exports.ALL_TASKS = (userId) => `SELECT * FROM tasks WHERE user_id = ${userId}`;
 
-// Get every job
-exports.ALL_JOBS = `SELECT * FROM jobs`;
-
-// Get a single job by id
-exports.SINGLE_JOB = `SELECT * FROM jobs WHERE id = ?`;
+// Get a single task by id
+exports.SINGLE_TASK = (userId, taskId) =>
+    `SELECT * FROM tasks WHERE user_id = ${userId} AND task_id = ${taskId}`;
 
 /**
  * Insert follows syntax:
  * - INSERT INTO <table_name>(<col_name1>, <col_name3>, <col_name3>, ...)
  *    VALUES(<value1>, <value2>, <value3>, ...)
  *
- * Create a new task in `jobs` table where
+ * Create a new task in `tasks` table where
  * - column names match the order the are in the table
  * - `?` allow us to use params in our controllers
  */
-exports.INSERT_JOB = `INSERT INTO jobs (user_id, jobName) VALUES (?,?)`;
+exports.INSERT_TASK = (userId, taskName) =>
+    `INSERT INTO tasks (user_id, task_name) VALUES (${userId}, ${taskName})`;
 
 /**
  * Update follows syntax:
@@ -47,18 +82,10 @@ exports.INSERT_JOB = `INSERT INTO jobs (user_id, jobName) VALUES (?,?)`;
  *
  * NOTE: omitting `WHERE` will result in updating every existing entry.
  */
-//create job
-// exports.INSERT_NEW_JOB = `INSERT INTO jobs (user_id, jobName) VALUES (?, ?)`;
+exports.UPDATE_TASK = (userId, taskId, newValues) =>
+    `UPDATE tasks SET ${newValues} WHERE user_id = ${userId} AND task_id = ${taskId}`;
 
-exports.UPDATE_JOB = `UPDATE jobs SET jobName = ?, status = ? WHERE id = ?`;
-
-// Delete a job by id
-exports.DELETE_JOB = `DELETE FROM jobs WHERE id = ?`;
-
-// mysqld => start mysql server
-// npm run start
-
-// just for debugging shell  //
-// mysql -u root -p => enter password
-
+// Delete a task by id
+exports.DELETE_TASK = (userId, taskId) =>
+    `DELETE FROM tasks WHERE user_id = ${userId} AND task_id = ${taskId}`;
 
