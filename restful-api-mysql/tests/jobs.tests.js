@@ -43,11 +43,11 @@ describe('Tasks API Service', function () {
         const newJob = {
             name: 'New test job!',
         };
-        const expected = { message: 'Add task successfully!' };
+        const expected = { message: 'Add job successfully!' };
 
         chai
             .request('http://localhost:3000')
-            .post('/api/tasks')
+            .post('/api/jobs')
             .send(newJob)
             .end(function (err, resp) {
                 expect(resp.status).to.be.eql(200);
