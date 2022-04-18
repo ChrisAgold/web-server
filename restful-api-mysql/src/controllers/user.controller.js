@@ -66,7 +66,7 @@ exports.updateMe = async function (req, res) {
         });
 
         if (result.affectedRows === 1) {
-            res.json({ msg: 'Updated succesfully!' });
+            res.json({ msg: 'Updated successfully!' });
         }
         res.json({ msg: 'Nothing to update...' });
     }

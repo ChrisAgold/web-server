@@ -29,7 +29,7 @@
 // npm run start
 
 // just for debugging shell  //
-// mysql -u root -p => enter password
+// mysql -u root -p
 /**
  * Tables follow syntax:
  * - CREATE TABLE <table_name>(<column_name> <data_type> <options>, ...)
@@ -43,7 +43,7 @@
  * NOTE: order is important.
  * - columns can have multiple options attached (take `id` column for example)
  * - id is always first (helps with inserting)
- * - defaults always specifed last (helps with inserting)
+ * - defaults always specified last (helps with inserting)
  */
 exports.CREATE_TASKS_TABLE = `CREATE TABLE IF NOT EXISTS tasks(
   task_id int NOT NULL AUTO_INCREMENT,
